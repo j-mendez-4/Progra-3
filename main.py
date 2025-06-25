@@ -139,7 +139,7 @@ def elegir_juego():
         time.sleep(3)
         return menu_principal()
 
-
+print("Hola mundo")
 # ---------------------- EXPERIMENTAL ----------------------
 
 res = menu_principal()
