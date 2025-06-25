@@ -101,22 +101,20 @@ def menu_principal():
         print(f"\nEsa no es una opción valida! \n")
         time.sleep(3)
         return menu_principal()
-    
-
 
 def elegir_juego():
 
     print("Elige uno de los juegos para comenzar la partida:")
-    time.slep(1)
+    time.sleep(1)
     
     print("1. La encuadrillada (Fox and Hounds)")
-    time.slep(1)
+    time.sleep(1)
 
     print("2. La Disputa (21 o Ron)")
-    time.slep(1)
+    time.sleep(1)
 
     print("q. Atrás")
-    time.slep(1)
+    time.sleep(1)
 
     opción = input(f"\nElige una {Fore.YELLOW}opción:{Fore.RESET}")
 
@@ -139,7 +137,6 @@ def elegir_juego():
         time.sleep(3)
         return menu_principal()
 
-print("Hola mundo")
 # ---------------------- EXPERIMENTAL ----------------------
 
 res = menu_principal()
