@@ -61,7 +61,7 @@ def menu_principal():
 #                                                                            #
 ##############################################################################
 
-          ''')
+            ''')
     time.sleep(1)
 
     print("1. Jugar") # -> Jugar
@@ -137,7 +137,40 @@ def elegir_juego():
         time.sleep(3)
         return menu_principal()
 
-# ---------------------- EXPERIMENTAL ----------------------
+def inicio_liebre_y_perros ():
+    tablero = lyp_crear_tablero([])
+    mostrar_tablero(tablero)
 
+def lyp_crear_tablero(tablero):
+    '''
+    Funcion que crea el tablero para el juego de liebres y los perros de caza
+
+    E: Nada
+    S: Una matriz que representa el tablero del juego
+    R: Ninguna
+    '''
+    fila = []
+    for i in range(2):
+
+        columna = []
+        for i2 in range(4):
+            columna += ["y"]
+        fila += columna
+        tablero += [fila]
+
+    print(tablero)
+    return tablero
+
+def mostrar_tablero(tablero):
+    for fila in tablero:
+        
+        for elemento in fila:
+            print(elemento, end=" ")
+        print()
+
+# ---------------------- EXPERIMENTAL ----------------------
+inicio_liebre_y_perros()
+'''
 res = menu_principal()
 print(res)
+'''
