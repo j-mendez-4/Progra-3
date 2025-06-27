@@ -72,13 +72,13 @@ def menu_principal():
     time.sleep(1)
     print("4. Créditos") # -> EasterEgg
     time.sleep(1)
-    print("q. Salir") # -> Salir
+    print("\nq. Salir") # -> Salir
     time.sleep(1)
 
     opción = input(f"\nElige una {Fore.YELLOW}opción:{Fore.RESET}")
 
-    if not es_numerico(opción) or opción != "q" or opción != "Q":
-        print("\nIgresa una opción valida! \n")
+    if not es_numerico(opción) and opción != "q" and opción != "Q":
+        print("\nNo es una opción valida! \n")
         time.sleep(3)
         return menu_principal()
     
@@ -95,6 +95,8 @@ def menu_principal():
         return ""
     
     elif opción == "q" or opción == "Q":
+        print("\nVuelve Pronto!")
+        time.sleep(3)
         return ""
     
     else:
@@ -104,30 +106,30 @@ def menu_principal():
 
 def elegir_juego():
 
-    print("Elige uno de los juegos para comenzar la partida:")
+    print("\nElige uno de los juegos para comenzar la partida:\n")
     time.sleep(1)
     
     print("1. La encuadrillada (Fox and Hounds)")
     time.sleep(1)
 
-    print("2. La Disputa (21 o Ron)")
+    print("2. La Disputa (21)")
     time.sleep(1)
 
-    print("q. Atrás")
+    print("\nq. Atrás")
     time.sleep(1)
 
     opción = input(f"\nElige una {Fore.YELLOW}opción:{Fore.RESET}")
 
-    if not es_numerico(opción) or opción != "q" or opción != "Q":
+    if not es_numerico(opción) and opción != "q" and opción != "Q":
         print("\nIgresa una opción valida! \n")
         time.sleep(3)
-        return menu_principal()
+        return elegir_juego()
     
     elif opción == "1":
         return "JUEGO 1"
     
     elif opción == "2":
-        return "JUEGO 2"
+        return iniciar_veintiuno()
     
     elif opción == "q" or opción == "Q":
         return menu_principal()
@@ -135,7 +137,9 @@ def elegir_juego():
     else:
         print(f"\nEsa no es una opción valida! \n")
         time.sleep(3)
-        return menu_principal()
+        return elegir_juego()
+    
+# ---------------------- LIEBRE Y PERROS ----------------------
 
 def inicio_liebre_y_perros ():
     tablero = lyp_crear_tablero([])
@@ -168,9 +172,49 @@ def mostrar_tablero(tablero):
             print(elemento, end=" ")
         print()
 
+
+# ---------------------- VEINTIUNO ----------------------
+
+def iniciar_veintiuno():
+
+    print("\nBienvenidx al Juego de 21!\n")
+    time.sleep(1)
+
+    print("Elige un Modo de Juego:\n")
+    time.sleep(1)
+
+    print("1. Un Jugador (V.S. COM.)")
+    time.sleep(1)
+
+    print("2. Dos Jugadores")
+    time.sleep(1)
+
+    print("\nq. Atrás")
+    time.sleep(1)
+
+    opción = input(f"\nElige una {Fore.YELLOW}opción:{Fore.RESET}")
+
+    if not es_numerico(opción) or opción != "q" or opción != "Q":
+        print("\nIgresa una opción valida! \n")
+        time.sleep(3)
+        return iniciar_veintiuno()
+    
+    elif opción == "1":
+        return ""
+    
+    elif opción == "2":
+        return ""
+    
+    elif opción == "q" or opción == "Q":
+        return elegir_juego()
+    
+    else:
+        print(f"\nEsa no es una opción valida! \n")
+        time.sleep(3)
+        return iniciar_veintiuno()
 # ---------------------- EXPERIMENTAL ----------------------
-inicio_liebre_y_perros()
-'''
+
+
 res = menu_principal()
 print(res)
-'''
+
