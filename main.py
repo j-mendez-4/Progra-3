@@ -129,7 +129,7 @@ def elegir_juego():
         return "JUEGO 1"
     
     elif opción == "2":
-        return iniciar_veintiuno()
+        return menu_veintiuno()
     
     elif opción == "q" or opción == "Q":
         return menu_principal()
@@ -174,8 +174,62 @@ def mostrar_tablero(tablero):
 
 
 # ---------------------- VEINTIUNO ----------------------
+def determinar_carta(carta):
+    if carta < 1 or carta > 52:
+        print("\nError: El número de carta debe estar entre 1 y 52.")
+        return None
 
-def iniciar_veintiuno():
+    if carta in range(1, 4):
+        carta = 2
+
+    elif carta in range(4, 8):
+        carta = 3
+
+    elif carta in range(8, 12):
+        carta = 4
+    
+    elif carta in range(12, 16):
+        carta = 5
+
+    elif carta in range(16, 20):
+        carta = 6
+
+    elif carta in range(20, 24):
+        carta = 7
+
+    elif carta in range(24, 28):
+        carta = 8
+
+    elif carta in range(28, 32):
+        carta = 9
+
+    elif carta in range(32, 48):
+        carta = 10
+
+    else:
+        carta = decidir_as(carta)
+
+def decidir_as(carta):
+    '''
+    pregunta al jugador si quiere que el as valga 1 o 11
+    E: Un numero del 1 al 52
+    S: Un numero (1 o 11) que representa el valor del as
+    R: Si el numero no es un as, retorna None
+    '''
+    if carta != 1 and carta != 52:
+        return None
+    else:
+        
+        respuesta = input("\n¿Quieres que el as valga 1 o 11? (1/11): ")
+        if respuesta == "1":
+            return 1
+        elif respuesta == "11":
+             return 11
+        else:
+            print("Respuesta no válida. Por favor, ingresa 1 o 11.")
+            return decidir_as(carta)
+
+def menu_veintiuno():
 
     print("\nBienvenidx al Juego de 21!\n")
     time.sleep(1)
@@ -194,13 +248,13 @@ def iniciar_veintiuno():
 
     opción = input(f"\nElige una {Fore.YELLOW}opción:{Fore.RESET}")
 
-    if not es_numerico(opción) or opción != "q" or opción != "Q":
+    if not es_numerico(opción) and opción != "q" and opción != "Q":
         print("\nIgresa una opción valida! \n")
         time.sleep(3)
-        return iniciar_veintiuno()
+        return menu_veintiuno()
     
     elif opción == "1":
-        return ""
+        return veintiuno_main(["COM", "CASA"], random.randint(1, 4))
     
     elif opción == "2":
         return ""
@@ -211,7 +265,34 @@ def iniciar_veintiuno():
     else:
         print(f"\nEsa no es una opción valida! \n")
         time.sleep(3)
-        return iniciar_veintiuno()
+        return menu_veintiuno()
+    
+
+
+def iniciar_veintiuno_vs_com(baraja_inicial_com, baraja_inicial_casa):
+
+    baraja_inicial_com = []
+    baraja_inicial_casa = []
+
+    for cartas in range(2):
+
+        baraja_inicial_com += determinar_carta(random.randint(1, 52))
+
+
+
+def veintiuno_main(modalidad, perfil):
+
+    turno = 0
+
+    while turno:
+
+        print(f"\n===== Juega la {modalidad[0]} =====\n")
+
+        if perfil == 1:
+            return "WIP"
+
+
+
 # ---------------------- EXPERIMENTAL ----------------------
 
 
