@@ -174,40 +174,45 @@ def mostrar_tablero(tablero):
 
 
 # ---------------------- VEINTIUNO ----------------------
-def determinar_carta(carta):
-    if carta < 1 or carta > 52:
-        print("\nError: El número de carta debe estar entre 1 y 52.")
-        return None
 
-    if carta in range(1, 4):
-        carta = 2
+def repartir_cartas(num):
 
-    elif carta in range(4, 8):
-        carta = 3
+    for i in range(num):
 
-    elif carta in range(8, 12):
-        carta = 4
-    
-    elif carta in range(12, 16):
-        carta = 5
+        if carta < 1 or carta > 52:
+            print("\nError: El número de carta debe estar entre 1 y 52.")
 
-    elif carta in range(16, 20):
-        carta = 6
+        if carta in range(1, 4):
+            carta = 2
 
-    elif carta in range(20, 24):
-        carta = 7
+        elif carta in range(4, 8):
+            carta = 3
 
-    elif carta in range(24, 28):
-        carta = 8
+        elif carta in range(8, 12):
+            carta = 4
+        
+        elif carta in range(12, 16):
+            carta = 5
 
-    elif carta in range(28, 32):
-        carta = 9
+        elif carta in range(16, 20):
+            carta = 6
 
-    elif carta in range(32, 48):
-        carta = 10
+        elif carta in range(20, 24):
+            carta = 7
 
-    else:
-        carta = decidir_as(carta)
+        elif carta in range(24, 28):
+            carta = 8
+
+        elif carta in range(28, 32):
+            carta = 9
+
+        elif carta in range(32, 48):
+            carta = 10
+
+        else:
+            carta = decidir_as(carta)
+
+        return carta
 
 def decidir_as(carta):
     '''
@@ -216,11 +221,13 @@ def decidir_as(carta):
     S: Un numero (1 o 11) que representa el valor del as
     R: Si el numero no es un as, retorna None
     '''
-    if carta != 1 and carta != 52:
-        return None
+    if carta not in range(49, 52):
+        return 'error'
+    
     else:
         
-        respuesta = input("\n¿Quieres que el as valga 1 o 11? (1/11): ")
+        respuesta = input("\nEs un As! Quieres contarlo como 1 o como 11? (1/11): ")
+
         if respuesta == "1":
             return 1
         elif respuesta == "11":
@@ -274,19 +281,19 @@ def iniciar_veintiuno_vs_com(baraja_inicial_com, baraja_inicial_casa):
     baraja_inicial_com = []
     baraja_inicial_casa = []
 
-    for cartas in range(2):
-
-        baraja_inicial_com += determinar_carta(random.randint(1, 52))
 
 
 
-def veintiuno_main(modalidad, perfil):
+def veintiuno_main(modalidad, perfil, cartas):
 
+    cartas = [[],[]]
     turno = 0
+    juega = modalidad[0]
+    cartas[0] += repartir_cartas(2)
 
     while turno:
 
-        print(f"\n===== Juega la {modalidad[0]} =====\n")
+        print(f"\n===== Juega la {juega} =====\n")
 
         if perfil == 1:
             return "WIP"
