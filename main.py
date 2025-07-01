@@ -179,34 +179,36 @@ def repartir_cartas(num):
 
     for i in range(num):
 
+        carta = random.randint(1, 52)
+
         if carta < 1 or carta > 52:
             print("\nError: El número de carta debe estar entre 1 y 52.")
 
-        if carta in range(1, 4):
+        if carta in range(1, 5):
             carta = 2
 
-        elif carta in range(4, 8):
+        elif carta in range(5, 9):
             carta = 3
 
-        elif carta in range(8, 12):
+        elif carta in range(9, 13):
             carta = 4
         
-        elif carta in range(12, 16):
+        elif carta in range(13, 17):
             carta = 5
 
-        elif carta in range(16, 20):
+        elif carta in range(17, 21):
             carta = 6
 
-        elif carta in range(20, 24):
+        elif carta in range(21, 25):
             carta = 7
 
-        elif carta in range(24, 28):
+        elif carta in range(25, 29):
             carta = 8
 
-        elif carta in range(28, 32):
+        elif carta in range(29, 33):
             carta = 9
 
-        elif carta in range(32, 48):
+        elif carta in range(33, 49):
             carta = 10
 
         else:
@@ -221,8 +223,8 @@ def decidir_as(carta):
     S: Un numero (1 o 11) que representa el valor del as
     R: Si el numero no es un as, retorna None
     '''
-    if carta not in range(49, 52):
-        return 'error'
+    if carta not in range(49, 53):
+        return repartir_cartas(1)
     
     else:
         
@@ -261,7 +263,7 @@ def menu_veintiuno():
         return menu_veintiuno()
     
     elif opción == "1":
-        return veintiuno_main(["COM", "CASA"], random.randint(1, 4))
+        return veintiuno_main(["LA COM", "LA CASA"], random.randint(1, 4))
     
     elif opción == "2":
         return ""
@@ -276,33 +278,135 @@ def menu_veintiuno():
     
 
 
-def iniciar_veintiuno_vs_com(baraja_inicial_com, baraja_inicial_casa):
-
-    baraja_inicial_com = []
-    baraja_inicial_casa = []
-
-
-
-
-def veintiuno_main(modalidad, perfil, cartas):
+def veintiuno_main(modalidad, perfil):
 
     cartas = [[],[]]
-    turno = 0
-    juega = modalidad[0]
-    cartas[0] += repartir_cartas(2)
+    ronda = 0
+    sumatoria = [0, 0]
 
-    while turno:
+    while ronda == 0:
 
-        print(f"\n===== Juega la {juega} =====\n")
+        index = 0
 
-        if perfil == 1:
-            return "WIP"
+        while index < 2:
+
+            print(f"\n===== REPARTIENDO CARTAS A {modalidad[index]} =====\n")
+
+            cartas[index] += [repartir_cartas(2)]
+            time.sleep(2)
+            print('Done!')
+            time.sleep(1)
+
+            index += 1
+
+        ronda += 1
+        index = 0
+
+    while True:
+
+        if cartas[0][-1] == None:
+            break
+
+        sumatoria[0] = suma_cartas(cartas[0], index)
+
+        print(f"\n===== SUMATORIA DE {modalidad[0]} =====")
+        print(f"{Fore.YELLOW}-> {sumatoria[0]}{Fore.RESET}\n")
+        time.sleep(3)
+
+        if sumatoria[0] > 21:
+            return fin_21(pierde='LA COM', motivo=0)
+
+        if modalidad[0] == 'LA COM':
+
+            cartas[0] += [jugar_com(perfil, sumatoria[0])]
+
+            if cartas[0][-1] != None:
+
+                print(f"LA COM ha solicitado una carta\n")
+                time.sleep(1)
+                print("...\n")
+                time.sleep(1)
+                print(f"LA COM ha obtenido una carta con un valor de {cartas[0][-1]}\n")
+                time.sleep(3)
+
+            else:
+                print(f"LA COM ha pasado el turno\n")
+                time.sleep(3)
+
+    return jugar_casa(cartas[1])
+
+
+def jugar_com(perfil, sumatoria):
+
+    if perfil == 1:
+
+        if sumatoria in range(0, 19):
+            return repartir_cartas(1)
+        
+        elif sumatoria in range(19, 21):
+
+            coin = random.randint(0, 1)
+
+            if coin == 1:
+                return repartir_cartas(1)
+            
+        return None
+
+    elif perfil == 2:
+
+        if sumatoria in range(0, 16):
+            return repartir_cartas(1)
+                    
+        return None
+
+    elif perfil == 3:
+
+        if sumatoria in range(0, 16):
+            return repartir_cartas(1)
+        
+        elif sumatoria in range(16, 20):
+
+            coin = random.randint(0, 1)
+
+            if coin == 1:
+                return repartir_cartas(1)
+            
+        return None
+
+    else:
+
+        return repartir_cartas(1)
+
+
+
+def fin_21(pierde, motivo):
+
+    if motivo == 0:
+        motivo = "La suma de sus cartas excede 21"
+
+    print(f"¡Ha perdido {pierde}! {motivo}")
+
+
+
+def suma_cartas(cartas, index):
+
+    sumatoria = [0,0]
+            
+    for i in range(len(cartas)):
+
+        sumatoria[index] += cartas[i]
+
+    return sumatoria[index]
+
+
+
+
 
 
 
 # ---------------------- EXPERIMENTAL ----------------------
 
 
-res = menu_principal()
+res = menu_veintiuno()
 print(res)
 
