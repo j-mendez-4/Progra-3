@@ -170,12 +170,15 @@ def crear_tablero_caza():
     for i in range(5):
         
         if i == 1:
-            columna = ["   /  |   |   | \ "]
+            columna = [r"   /  |   |   | \ "]
             fila += [columna]
 
         elif i == 3:
-            columna = ["   \  |   |   | / "]
+            columna = [r"   \  |   |   | / "]
             fila += [columna]
+
+        # [J]: Las 'r string' le indican a python que no intente interpretar la string, la toma como 'read only' y no da error al inicializar :)
+        #      No debería afectar en el funcionamiento, es meramente estético, pero igual te lo comento or si acaso JAJAJ
 
         else:
             columna = []
@@ -329,27 +332,6 @@ def repartir_cartas(num):
 
         return carta
 
-def decidir_as(carta):
-    '''
-    pregunta al jugador si quiere que el as valga 1 o 11
-    E: Un numero del 1 al 52
-    S: Un numero (1 o 11) que representa el valor del as
-    R: Si el numero no es un as, retorna None
-    '''
-    if carta not in range(49, 53):
-        return repartir_cartas(1)
-    
-    else:
-        
-        respuesta = input("\nEs un As! Quieres contarlo como 1 o como 11? (1/11): ")
-
-        if respuesta == "1":
-            return 1
-        elif respuesta == "11":
-             return 11
-        else:
-            print("Respuesta no válida. Por favor, ingresa 1 o 11.")
-            return decidir_as(carta)
 
 def menu_veintiuno():
 
@@ -376,10 +358,10 @@ def menu_veintiuno():
         return menu_veintiuno()
     
     elif opción == "1":
-        return veintiuno_main(["LA COM", "LA CASA"], random.randint(1, 4))
+        return veintiuno_main(["LA COM", "LA CASA"])
     
     elif opción == "2":
-        return ""
+        return veintiuno_main(["J1", "LA CASA"])
     
     elif opción == "q" or opción == "Q":
         return elegir_juego()
@@ -391,11 +373,9 @@ def menu_veintiuno():
     
 
 
-def veintiuno_main(modalidad, perfil):
+def veintiuno_main(modalidad):
 
     cartas = [[],[]]
-    ronda = 0
-    sumatoria = [0, 0]
 
     while True:
 
@@ -410,7 +390,7 @@ def veintiuno_main(modalidad, perfil):
             print('Done!')
             time.sleep(1)
 
-            if index == 1 and modalidad[index] == 'LA COM' and cartas[index][0] == 5:
+            if index == 1 and modalidad[index] == 'LA COM' or 'J1' and cartas[index][0] == 5:
 
                 coin = random.randint(0, 3)
                 if coin == 0:
@@ -418,40 +398,48 @@ def veintiuno_main(modalidad, perfil):
 
             index += 1
 
-        break
+        if modalidad[0] == 'LA COM':
+            return veintiuno_com(cartas)
+        else:
+            return veintiuno_vs(cartas)
+
+def veintiuno_com(cartas):
+
+    sumatoria = [0, 0]
+    perfil = random.randint(1, 4)
+
+    print(f"\n===== PERFIL DE LA COM: {perfil} =====\n")
 
     while True:
 
         if cartas[0][-1] == None:
             break
 
-        sumatoria[0] = suma_cartas(cartas[0], 0)
-
-        print(f"\n===== SUMATORIA DE {modalidad[0]} =====")
-        print(f"{Fore.YELLOW}-> {sumatoria[0]}{Fore.RESET}\n")
-        time.sleep(3)
+        sumatoria[0] = suma_cartas(cartas[0], 'LA COM')
 
         if sumatoria[0] > 21:
+
+            print(f"\n===== SUMATORIA DE LA COM =====")
+            print(f"{Fore.YELLOW}-> {sumatoria[0]}{Fore.RESET}\n")
+
             return fin_21(pierde='LA COM', motivo=0)
 
-        if modalidad[0] == 'LA COM':
+        cartas[0] += [jugar_com(perfil, sumatoria[0])]
 
-            cartas[0] += [jugar_com(perfil, sumatoria[0])]
+        if cartas[0][-1] != None:
 
-            if cartas[0][-1] != None:
+            print(f"LA COM ha solicitado una carta\n")
+            time.sleep(1)
+            print("...\n")
+            time.sleep(1)
+            print(f"LA COM ha obtenido una carta con un valor de {cartas[0][-1]}\n")
+            time.sleep(3)
 
-                print(f"LA COM ha solicitado una carta\n")
-                time.sleep(1)
-                print("...\n")
-                time.sleep(1)
-                print(f"LA COM ha obtenido una carta con un valor de {cartas[0][-1]}\n")
-                time.sleep(3)
+        else:
+            print(f"LA COM ha pasado el turno\n")
+            time.sleep(3)
 
-            else:
-                print(f"LA COM ha pasado el turno\n")
-                time.sleep(3)
-
-    return jugar_casa(cartas)
+    return jugar_casa(cartas, modalidad='LA COM')
 
 
 def jugar_com(perfil, sumatoria):
@@ -495,15 +483,64 @@ def jugar_com(perfil, sumatoria):
 
         return repartir_cartas(1)
     
+def veintiuno_vs(cartas):
 
-def jugar_casa(cartas):
+    print(f"\n===== JUEGA J1 =====\n")
+    time.sleep(3)
+
+    while True:
+
+        sumatoria = suma_cartas(cartas[0], 'J1')
+
+        if sumatoria > 21:
+
+            print(f"\n===== SUMATORIA DE J1 =====")
+            print(f"{Fore.YELLOW}-> {sumatoria}{Fore.RESET}\n")
+            time.sleep(1)
+
+            return fin_21(pierde='J1', motivo=0)
+
+        print(f"\n===== SUMATORIA DE J1 =====")
+        print(f"{Fore.YELLOW}-> {sumatoria}{Fore.RESET}\n")
+
+        print("Elige una acción:\n")
+        time.sleep(1)
+        print("1. Tomar una Carta")
+        time.sleep(1)
+        print("2. Pasar el Turno")
+
+        acción = input(f"\n{Fore.YELLOW}¿Qué deseas hacer? : {Fore.RESET}")
+
+        if acción == "1":
+            cartas[0] += [repartir_cartas(1)]
+
+            print(f"J1 ha solicitado una carta\n")
+            time.sleep(1)
+            print("...\n")
+            time.sleep(1)
+            print(f"J1 ha obtenido una carta con un valor de {cartas[0][-1]}\n")
+            time.sleep(3)
+
+
+        elif acción == "2":
+            break
+
+        else:
+            print("Debes escoger una opción valida!\n")
+            continue
+
+    return jugar_casa(cartas, modalidad='J1')
+
+    
+
+def jugar_casa(cartas, modalidad):
     
     print(f"\n===== JUEGA LA CASA =====\n")
     time.sleep(3)
 
     while True:
 
-        sumatoria = suma_cartas(cartas[1], 1)
+        sumatoria = suma_cartas(cartas[1], 'LA CASA')
 
         if sumatoria > 21:
 
@@ -542,19 +579,19 @@ def jugar_casa(cartas):
             print("Debes escoger una opción valida!\n")
             continue
 
-    return determinar_ganador(cartas)
+    return determinar_ganador(cartas, modalidad)
 
 
-def determinar_ganador(cartas):
+def determinar_ganador(cartas, modalidad):
 
     sumatoria = [0 ,0]
-    sumatoria[0] += suma_cartas(cartas[0], 0)
-    sumatoria[1] += suma_cartas(cartas[1], 1)
+    sumatoria[0] += suma_cartas(cartas[0], 'LA CASA')
+    sumatoria[1] += suma_cartas(cartas[1], 'NO LA CASA')
 
     if sumatoria[0] > sumatoria[1]:
         return fin_21(pierde='LA CASA', motivo=1)
     else:
-        return fin_21(pierde='LA COM', motivo=1)
+        return fin_21(pierde=modalidad, motivo=1)
 
     
 
@@ -564,43 +601,51 @@ def fin_21(pierde, motivo):
         motivo = "La suma de sus cartas excede 21"
     elif motivo == 1:
         motivo = "La suma de sus cartas es menor"
+    elif motivo == 2:
+        motivo = "La primera carta de LA COM fué un 5 de rombos :P"
 
-    print(f"¡Ha perdido {pierde}! {motivo}")
+    print(f"\n¡Ha perdido {pierde}! {motivo}")
 
 
 
-def suma_cartas(cartas, index):
+def suma_cartas(cartas, modalidad):
 
     sumatoria = [0, 0]
+
+    if modalidad == 'LA COM':
+        index = 0
+    else:
+        index = 1
+
             
     for i in range(len(cartas)):
 
         if cartas[i] == None:
             break
         elif cartas[i] == 'AS' and index != 0:
-                
-            while True:
+
+            j = 0    
+            while j == 0:
                     
                 respuesta = input("\nHay un As! Quieres contarlo como 1 o como 11? (1/11): ")
 
                 if respuesta == "1":
                     cartas[i] = 1
-                    break
+                    j +=  1
                 elif respuesta == "11":
                     cartas[i] = 11
-                    break
+                    j += 1
                 else:
                     print("Respuesta no válida. Por favor, ingresa 1 o 11.")
-                    continue
 
         elif cartas[i] == 'AS' and index == 0:
 
             coin = random.randint(0, 1)
 
             if coin == 0:
-                cartas[i] == 1
+                cartas[i] = 1
             else:
-                cartas[i] == 11
+                cartas[i] = 11
                 
 
 
