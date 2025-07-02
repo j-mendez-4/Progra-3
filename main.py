@@ -208,6 +208,39 @@ def lore_main():
     else:
         print("Ingresa una opción válida!")
         return lore_main()
+    
+# -------------------------- CRÉDITOS -------------------------
+
+def creditos():
+
+    print('''
+    ___________.__                   __         
+    \__    ___/|  |__ _____    ____ |  | __     
+      |    |   |  |  \\__  \  /    \|  |/ /     
+      |    |   |   Y  \/ __ \|   |  \    <      
+      |____|   |___|  (____  /___|  /__|_ \     
+                    \/     \/     \/     \/     
+                         _____.___.             
+                         \__  |   | ____  __ __ 
+                          /   |   |/  _ \|  |  
+                          \____   (  <_> )  |  /
+                          / ______|\____/|____/ 
+                          \/                    
+
+          ''')
+
+    print("Este Juego corresponde a la 3ª Progra de [IC1803] Taller de Programación")
+    print("A Cargo del profe Aurelio Sanabria Rodriguez")
+    print("Elaborado por Johannes Méndez Flores [j.mendez.4@estudiantec.cr]" \
+          "y Daniel Solano Codero [	d.solano.1@estudiantec.cr]")
+    print("Gracias Por Jugar!")
+    time.sleep(5)
+
+    print("")
+    input("Presiona ↵ para volver al menú principal:")
+    return menu_principal()
+
+
 
 
 # ------------------------- CÓMO JUGAR ------------------------
