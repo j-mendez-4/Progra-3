@@ -141,37 +141,150 @@ def elegir_juego():
     
 # ---------------------- LIEBRE Y PERROS ----------------------
 
-def inicio_liebre_y_perros ():
-    tablero = lyp_crear_tablero([])
-    mostrar_tablero(tablero)
+def inicio_juego_caza():
+    '''Funcion principal del juego'''
+    tablero = crear_tablero_caza()
+    turno = 0
+    if turno == 0:
 
-def lyp_crear_tablero(tablero):
-    '''
-    Funcion que crea el tablero para el juego de liebres y los perros de caza
+        print("--Tablero de juego--")
+        mostrar_tablero_caza(tablero)
+        print("A1: Anarquista Max Striner \nA2: Anarquista Lysander Spooner \n" \
+                "A3: Anarquista Guillermo Godwin \nF: Facista agresivo")
+        eleccion = input("Que anarquista desea mover (1 - 2 - 3): ")
+        while not verificar_existe_caza(eleccion):
 
-    E: Nada
-    S: Una matriz que representa el tablero del juego
-    R: Ninguna
-    '''
-    fila = []
-    for i in range(2):
-
-        columna = []
-        for i2 in range(4):
-            columna += ["y"]
-        fila += columna
-        tablero += [fila]
-
-    print(tablero)
-    return tablero
-
-def mostrar_tablero(tablero):
-    for fila in tablero:
+            print("Seleccione un anarquista existente: ")
+            eleccion = input("Que anarquista desea mover: ")
         
-        for elemento in fila:
-            print(elemento, end=" ")
+        anarquista = "(A" + eleccion +")"
+        posibilidades = posibilidad_anarquista_caza(anarquista, tablero)
+        posicion = posicion_anarquista_caza(anarquista, tablero)
+        if posibilidades == "-2":
+
+            bloqueos_caza(anarquista, tablero, posicion)
+
+def crear_tablero_caza():
+    '''Crea el tablero de 5x3'''
+    fila = []
+    for i in range(5):
+        
+        if i == 1:
+            columna = ["   /  |   |   | \ "]
+            fila += [columna]
+
+        elif i == 3:
+            columna = ["   \  |   |   | / "]
+            fila += [columna]
+
+        else:
+            columna = []
+            for x in range(9):
+                
+                if x == 0 or x == 2 or\
+                      x == 4 or x == 6 or\
+                        x == 8:
+
+                    if i == 0 and x == 2:
+
+                        columna += ["(A1)"]
+
+                    elif i == 2 and x == 0:
+
+                        columna += ["(A2)"]
+                    
+                    elif i == 4 and x == 2:
+
+                        columna += ["(A3)"]
+
+                    elif i == 2 and x == 8:
+
+                        columna += ["(F)"]
+
+                    else:
+
+                        columna += ["( )"]
+                
+                else:
+
+                    if i == 2 and x == 1 or\
+                        i == 2 and x == 7:
+                        
+                        columna += ["-"] 
+
+                    elif x == 3 or x == 5:
+                        
+                        columna += ["-"] 
+
+                    else:
+
+                        columna += [""]                  
+
+            fila += [columna]
+
+    return fila
+
+def mostrar_tablero_caza(tablero):
+    '''Hace print del tablero'''
+    for fila in range(len(tablero)):
+
+        for columna in range(len(tablero[fila])):
+            
+            if fila == 0 and columna == 0 or\
+                fila == 0 and columna == 8:
+
+                print("    ", end="")
+            
+            elif fila == 4 and columna == 0 or\
+                fila == 4 and columna == 8:
+
+                print("    ", end="")
+            
+            else:
+                print(tablero[fila][columna], end="")
+
         print()
 
+def verificar_existe_caza(eleccion):
+    '''Verifica que la seleccion del anarquista exista'''
+    if eleccion == "1" or eleccion == "2" or eleccion == "3":
+
+        return True
+    
+    else:
+
+        return False
+    
+def posibilidad_anarquista_caza(anarquista, tablero):
+    '''busca las opciones del anarquista al anarquista'''
+    for fila in range(len(tablero)):
+
+        for columna in range(len(tablero[fila])):
+            
+            if fila == 0 and tablero[fila][columna] == anarquista:
+
+                return "-2"
+            
+            if fila == 4 and tablero[fila][columna] == anarquista:
+
+                return "+2"
+
+            if fila == 2 and tablero[fila][columna] == anarquista:
+
+                return "3"
+
+def posicion_anarquista_caza(anarquista, tablero):
+    '''Devuelve la posicion del anarquista seleccionado'''
+    for fila in range(len(tablero)):
+
+        for columna in range(len(tablero[fila])):
+            
+            if tablero[fila][columna] == anarquista:
+
+                return [fila, columna]
+            
+def bloqueos_caza(anarquista, tablero, posicion):
+    '''Determina que caminos estan bloqueados'''
 
 # ---------------------- VEINTIUNO ----------------------
 
