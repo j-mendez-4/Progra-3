@@ -143,52 +143,34 @@ def elegir_juego():
 
 def inicio_juego_caza():
     '''Funcion principal del juego'''
+    print("")
     print("Bienvenido a la Liebre y los Perros de Caza.")
     print("")
     time.sleep(1)
     print("Te enfrentas a la computadora.")
+    print("")
 
     tablero = crear_tablero_caza()
     turno = 0
-    if turno == 0:
+    while turno != 2:
 
-        time.sleep(1)
-        print("--Tablero de juego--")
+        if turno == 0:
 
-        time.sleep(1)
-        mostrar_tablero_caza(tablero)
-        print("A1: Anarquista Max Striner \nA2: Anarquista Lysander Spooner \n" \
-                "A3: Anarquista Guillermo Godwin \nF: Facista agresivo")
-        print("")
-        
-        eleccion = input("Que anarquista desea mover (1 - 2 - 3): ")
-        while not verificar_existe_caza(eleccion):
+            time.sleep(2)
+            print("--Tablero de juego--")
+            print("")
 
-            print("Seleccione un anarquista existente: ")
-            eleccion = input("Que anarquista desea mover: ")
-        
-        anarquista = "(A" + eleccion +")"
-        posibilidades = posibilidad_caza(anarquista, tablero)
-        posicion = posicion_caza(anarquista, tablero)
-        if posibilidades == "1":
-
-            bloqueos = bloqueos_f1_caza(anarquista, tablero, posicion)
-
-        elif posibilidades == "2":
-
-            bloqueos = bloqueos_f3_caza(anarquista, tablero, posicion)
-
-        else:
-
-            bloqueos = bloqueos_f2_caza(anarquista, tablero, posicion)
-
-        while bloqueos == []:
-
-            print("No hay caminos disponibles.\
-                Seleccion otro Anarquista.")
+            mostrar_tablero_caza(tablero)
+            print("")
+            print("A1: Anarquista Max Striner \nA2: Anarquista Lysander Spooner \n" \
+                    "A3: Anarquista Guillermo Godwin \nF: Facista agresivo")
+            print("")
+            
+            time.sleep(1)
             eleccion = input("Que anarquista desea mover (1 - 2 - 3): ")
             while not verificar_existe_caza(eleccion):
 
+                time.sleep(1)
                 print("Seleccione un anarquista existente: ")
                 eleccion = input("Que anarquista desea mover: ")
             
@@ -207,17 +189,78 @@ def inicio_juego_caza():
 
                 bloqueos = bloqueos_f2_caza(anarquista, tablero, posicion)
 
-        camino = opciones_caza(bloqueos)
-        tablero = modificar_tablero_caza(anarquista, posicion, tablero, camino)
-        mostrar_tablero_caza(tablero)
-        turno = 1
+            while bloqueos == []:
 
-    if turno == 1:
-        facista = "(F)"
-        posibilidades = posibilidad_caza(facista, tablero)
-        posicion = posicion_caza(facista, tablero)
-        print(posicion)
-        turno = 0
+                print("No hay caminos disponibles.\
+                    Seleccion otro Anarquista.")
+                eleccion = input("Que anarquista desea mover (1 - 2 - 3): ")
+                print("")
+                while not verificar_existe_caza(eleccion):
+
+                    print("Seleccione un anarquista existente: ")
+                    eleccion = input("Que anarquista desea mover: ")
+                
+                anarquista = "(A" + eleccion +")"
+                posibilidades = posibilidad_caza(anarquista, tablero)
+                posicion = posicion_caza(anarquista, tablero)
+                if posibilidades == "1":
+
+                    bloqueos = bloqueos_f1_caza(anarquista, tablero, posicion)
+
+                elif posibilidades == "2":
+
+                    bloqueos = bloqueos_f3_caza(anarquista, tablero, posicion)
+
+                else:
+
+                    bloqueos = bloqueos_f2_caza(anarquista, tablero, posicion)
+
+            time.sleep(1)
+            camino = opciones_caza(bloqueos)
+            tablero = modificar_tablero_caza(anarquista, posicion, tablero, camino)
+
+            time.sleep(1)
+            print("--Tablero de juego--")
+            mostrar_tablero_caza(tablero)
+            turno = 1
+
+        if turno == 1:
+            fascista = "(F)"
+            posibilidades = posibilidad_caza(fascista, tablero)
+            posicion = posicion_caza(fascista, tablero)
+            if posicion[1] == 0:
+
+                return print("El fascista agrasivo escapo.\n" + "Fin del juego.")  
+            
+            if posibilidades == "1":
+
+                bloqueos = bloqueos_f1_fascista(tablero, posicion)
+
+            elif posibilidades == "2":
+
+                bloqueos = bloqueos_f3_fascista(tablero, posicion)
+
+            else:
+
+                bloqueos = bloqueos_f2_fascista(tablero, posicion)            
+                
+            if bloqueos == []:
+
+                return print("El fascista ha sido capturado.\n" + "Los anarquistas ganan el juego.")
+                
+            else:
+                camino = opciones_fascista(bloqueos)
+                tablero = modificar_tablero_fascista(fascista, posicion, tablero, camino)
+
+                time.sleep(1)
+                print("")
+                print("--Tablero de juego--")
+                print("")
+                mostrar_tablero_caza(tablero)
+                print("")
+                print("El fascista se mueve hacia: " + camino)
+                print("")
+                turno = 0
 
 def crear_tablero_caza():
     '''Crea el tablero de 5x3'''
@@ -517,7 +560,7 @@ def bloqueos_f3_caza(anarquista, tablero, posicion):
     
     elif posicion[1] == 4:
 
-        for i in range(3):
+        for i in range(2):
 
             if i == 0:
 
@@ -535,7 +578,7 @@ def bloqueos_f3_caza(anarquista, tablero, posicion):
     
     else:
 
-        for i in range(3):
+        for i in range(2):
 
             if i == 0:
 
@@ -550,6 +593,294 @@ def bloqueos_f3_caza(anarquista, tablero, posicion):
                     caminos += ["Diagonal Arriba"]
 
         return caminos
+    
+def bloqueos_f1_fascista(tablero, posicion):
+    '''Determina que caminos estan bloqueados de la primera linea'''
+    caminos = []
+    if posicion[1] == 6:
+
+        for i in range(4):
+
+            if i == 0:
+
+                if tablero[posicion[0]][posicion[1] - 2] == "( )":
+
+                    caminos += ["Izquierda"]
+
+            elif i == 1:
+
+                if tablero[posicion[0] + 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Abajo Izquierda"]
+
+            elif i == 2:
+
+                if tablero[posicion[0] + 2][posicion[1]] == "( )":
+
+                    caminos += ["Abajo"]
+
+            else:
+
+                if tablero[posicion[0] + 2][posicion[1] + 2] == "( )":
+
+                    caminos += ["Diagonal Abajo Derecha"]
+
+        return caminos
+    
+    elif posicion[1] == 4:
+
+        for i in range(3):
+
+            if i == 0:
+
+                if tablero[posicion[0]][posicion[1] - 2] == "( )":
+
+                    caminos += ["Izquierda"]
+
+            elif i == 1:
+
+                if tablero[posicion[0] + 2][posicion[1]] == "( )":
+
+                    caminos += ["Abajo"]
+
+            else:
+
+                if tablero[posicion[0]][posicion[1] + 2] == "( )":
+
+                    caminos += ["Derecha"]
+
+        return caminos
+    
+    else:
+
+        for i in range(4):
+
+            if i == 0:
+
+                if tablero[posicion[0] + 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Abajo Izquierda"]
+
+            elif i == 1:
+
+                if tablero[posicion[0] + 2][posicion[1]] == "( )":
+
+                    caminos += ["Abajo"]
+
+            elif i == 2: 
+
+                if tablero[posicion[0] + 2][posicion[1] + 2] == "( )":
+
+                    caminos += ["Diagonal Abajo Derecha"]
+
+            else:
+
+                if tablero[posicion[0]][posicion[1] + 2] == "( )":
+
+                    caminos += ["Derecha"]
+
+        return caminos
+    
+def bloqueos_f2_fascista(tablero, posicion):
+    '''Determina que caminos estan bloqueados'''
+    caminos = []
+    if posicion[1] == 8:
+
+        for i in range(3):
+
+            if i == 0:
+
+                if tablero[posicion[0] - 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Arriba Izquierda"]
+
+            elif i == 1:
+
+                if tablero[posicion[0]][posicion[1] - 2] == "( )":
+
+                    caminos += ["Izquierda"]
+
+            else:
+
+                if tablero[posicion[0] + 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Abajo Izquierda"]
+
+        return caminos
+
+    elif posicion[1] == 2 or posicion[1] == 6:
+        
+        for i in range(4):
+
+            if i == 0:
+
+                if tablero[posicion[0] - 2][posicion[1]] == "( )":
+
+                    caminos += ["Arriba"]
+
+            elif i == 1:
+
+                if tablero[posicion[0]][posicion[1] - 2] == "( )":
+
+                    caminos += ["Izquierda"]
+
+            elif i == 2:
+
+                if tablero[posicion[0] + 2][posicion[1]] == "( )":
+
+                    caminos += ["Abajo"]
+            
+            else:
+
+                if tablero[posicion[0]][posicion[1] + 2] == "( )":
+
+                    caminos += ["Derecha"]
+
+        return caminos
+    
+    elif posicion[1] == 4:
+        
+        for i in range(8):
+
+            if i == 0:
+
+                if tablero[posicion[0] - 2][posicion[1]] == "( )":
+
+                    caminos += ["Arriba"]
+
+            elif i == 1:
+
+                if tablero[posicion[0] - 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Arriba Izquierda"]
+
+            elif i == 2:
+
+                if tablero[posicion[0]][posicion[1] - 2] == "( )":
+
+                    caminos += ["Izquierda"]
+
+            elif i == 3:
+
+                if tablero[posicion[0] + 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Abajo Izquierda"]
+
+            elif i == 4:
+
+                if tablero[posicion[0] + 2][posicion[1]] == "( )":
+
+                    caminos += ["Abajo"]
+            
+            elif i == 5:
+
+                if tablero[posicion[0] + 2][posicion[1] + 2] == "( )":
+
+                    caminos += ["Diagonal Abajo Derecha"]
+
+            elif i == 6: 
+                
+                if tablero[posicion[0]][posicion[1] + 2] == "( )":
+
+                    caminos += ["Derecha"]
+            
+            else:
+
+                if tablero[posicion[0] - 2][posicion[1] + 2] == "( )":
+
+                    caminos += ["Diagonal Arriba Derecha"]
+        else:
+
+            caminos += ["Fin"]
+
+        return caminos
+
+def bloqueos_f3_fascista(tablero, posicion):
+    '''Determina que caminos estan bloqueados'''
+    caminos = []
+    if posicion[1] == 6:
+
+        for i in range(4):
+
+            if i == 0:
+                
+                if tablero[posicion[0] - 2][posicion[1] + 2] == "( )":
+
+                    caminos += ["Diagonal Arriba Derecha"]
+
+            elif i == 1:
+
+                if tablero[posicion[0] - 2][posicion[1]] == "( )":
+
+                    caminos += ["Arriba"]
+
+            elif i == 2:
+
+                if tablero[posicion[0] - 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Arriba Izquierda"]
+
+            else:
+
+                if tablero[posicion[0]][posicion[1] - 2] == "( )":
+
+                    caminos += ["Izquierda"]
+
+        return caminos
+    
+    elif posicion[1] == 4:
+
+        for i in range(3):
+
+            if i == 0:
+
+                if tablero[posicion[0]][posicion[1] + 2] == "( )":
+
+                    caminos += ["Derecha"]
+
+            elif i == 1:
+
+                if tablero[posicion[0] - 2][posicion[1]] == "( )":
+
+                    caminos += ["Arriba"]
+
+            else:
+
+                if tablero[posicion[0]][posicion[1] - 2] == "( )":
+
+                    caminos += ["Izquierda"]
+
+        return caminos
+    
+    else:
+
+        for i in range(4):
+
+            if i == 0:
+
+                if tablero[posicion[0]][posicion[1] + 2] == "( )":
+
+                    caminos += ["Derecha"]
+
+            elif i == 1:
+
+                if tablero[posicion[0] - 2][posicion[1] + 2] == "( )":
+
+                    caminos += ["Diagonal Arriba Derecha"]
+
+            elif i == 2:
+
+                if tablero[posicion[0] - 2][posicion[1]] == "( )":
+
+                    caminos += ["Arriba"]
+
+            else:
+
+                if tablero[posicion[0] - 2][posicion[1] - 2] == "( )":
+
+                    caminos += ["Diagonal Arriba Izquierda"]
+
+        return caminos
 
 def opciones_caza(bloqueos):
     '''Deja al jugador seleccionar el camino que desea tomar'''
@@ -561,6 +892,8 @@ def opciones_caza(bloqueos):
         opciones += [str(num)]
         num += 1
 
+    time.sleep(1)
+    print("")
     seleccion = input("Seleccione el camino deseado: ")
     while seleccion != 0:
 
@@ -569,12 +902,29 @@ def opciones_caza(bloqueos):
             if i == seleccion:
 
                 return bloqueos[int(i)-1]
-            
+        
+        time.sleep(1)
+        print("")
         seleccion = input("Seleccione un camino existente: ")
-    
 
-    print(bloqueos[int(seleccion) - 1])
+def opciones_fascista(bloqueos):
+    '''Selecciona el camino que la maquina va a tomar'''
+    num = 1
+    opciones = []
+    for i in range(len(bloqueos)):
 
+        opciones += [num]
+        num += 1
+
+    seleccion = random.randint(1,len(bloqueos))
+    while seleccion != 0:
+
+        for i in opciones:
+
+            if i == seleccion:
+
+                return bloqueos[i-1]
+            
 def modificar_tablero_caza(anarquista, posicion, tablero, camino):
     '''Modifica el tablero con el movimiento seleccionado'''
     if camino == "Arriba":
@@ -603,6 +953,56 @@ def modificar_tablero_caza(anarquista, posicion, tablero, camino):
 
         tablero[posicion[0]][posicion[1]] = "( )"
         tablero[posicion[0] + 2][posicion[1]] = anarquista
+        return tablero
+    
+def modificar_tablero_fascista(fascista, posicion, tablero, camino):
+    '''Modifica el tablero con el movimiento seleccionado'''
+    if camino == "Arriba":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0] - 2][posicion[1]] = fascista
+        return tablero
+
+    elif camino == "Diagonal Arriba Izquierda":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0] - 2][posicion[1] - 2] = fascista
+        return tablero
+    
+    elif camino == "Izquierda":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0]][posicion[1] - 2] = fascista
+        return tablero
+    
+    elif camino == "Diagonal Abajo Izquierda":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0] + 2][posicion[1] - 2] = fascista
+        return tablero
+    
+    elif camino == "Abajo":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0] + 2][posicion[1]] = fascista
+        return tablero
+    
+    elif camino == "Diagonal Abajo Derecha":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0] + 2][posicion[1] + 2] = fascista
+        return tablero
+    
+    elif camino == "Derecha":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0]][posicion[1] + 2] = fascista
+        return tablero
+    
+    elif camino == "Diagonal Arriba Derecha":
+
+        tablero[posicion[0]][posicion[1]] = "( )"
+        tablero[posicion[0] - 2][posicion[1] + 2] = fascista
         return tablero
 # ---------------------- VEINTIUNO ----------------------
 
