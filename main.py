@@ -89,7 +89,7 @@ def menu_principal():
         return ""
     
     elif opción == "3":
-        return ""
+        return cómo_jugar_main()
     
     elif opción == "4":
         return ""
@@ -139,6 +139,53 @@ def elegir_juego():
         time.sleep(3)
         return elegir_juego()
     
+def cómo_jugar_main():
+
+    print("\nElige uno de los juegos para saber cómo jugar:\n")
+    time.sleep(1)
+    
+    print("1. Anarquistas y El Fascista (Fox and Hounds)")
+    time.sleep(1)
+
+    print("2. Lo que siguió (21)")
+    time.sleep(1)
+
+    print("\nq. Atrás")
+    time.sleep(1)
+
+    while True:
+
+        opción = input(f"\nElige una {Fore.YELLOW}opción:{Fore.RESET}")
+
+        if not es_numerico(opción) and opción != "q" and opción != "Q":
+            print("\nIgresa una opción valida! \n")
+            time.sleep(3)
+            continue
+
+        elif opción == "1":
+            return cj_caza()
+        
+        elif opción == "2":
+            return cj_veintiuno()
+        
+        elif opción == "q" or opción == "Q":
+            return menu_principal()
+        
+        else:
+            print(f"\nEsa no es una opción valida! \n")
+            time.sleep(3)
+            continue
+
+# ------------------------- CÓMO JUGAR ------------------------
+
+def cj_caza():
+
+    return ''
+
+def cj_veintiuno():
+
+    return ''  
+
 # ---------------------- LIEBRE Y PERROS ----------------------
 
 def inicio_juego_caza():
