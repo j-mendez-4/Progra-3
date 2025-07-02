@@ -86,13 +86,13 @@ def menu_principal():
         return elegir_juego()
     
     elif opción == "2":
-        return ""
+        return lore_main()
     
     elif opción == "3":
         return cómo_jugar_main()
     
     elif opción == "4":
-        return ""
+        return creditos()
     
     elif opción == "q" or opción == "Q":
         print("\nVuelve Pronto!")
@@ -176,6 +176,40 @@ def cómo_jugar_main():
             time.sleep(3)
             continue
 
+def lore_main():
+
+    print(r'''
+           .--.                   .---.
+       .---|__|           .-.     |~~~|
+    .--|===|--|_          |_|     |~~~|--.
+    |  |===|  |'\     .---!~|  .--|   |--|
+    |%%|   |  |.'\    |===| |--|%%|   |  |
+    |%%|   |  |\.'\   |   | |__|  |   |  |
+    |  |   |  | \  \  |===| |==|  |   |  |
+    |  |   |__|  \.'\ |   |_|__|  |~~~|__|
+    |  |===|--|   \.'\|===|~|--|%%|~~~|--|
+    ^--^---'--^    `-'`---^-^--^--^---'--' hjw
+          ''')
+    
+    print(f"\nBienvenidx a la sección {Fore.CYAN}«Lore»{Fore.RESET}!\n")
+    time.sleep(1)
+
+    print("1. Continuar")
+
+    print("\nq. Volver")
+
+    print("\nADVERTENCIA: La siguiente sección contiene bastatnte texto, puedes tardar hasta 1 minuto!\n")
+    opción = input("¿Deseas continuar?")
+
+    if opción == "1":
+        return lore()
+    elif opción == "q" or  opción == "Q":
+        return menu_principal()
+    else:
+        print("Ingresa una opción válida!")
+        return lore_main()
+
+
 # ------------------------- CÓMO JUGAR ------------------------
 
 def cj_caza():
@@ -185,6 +219,100 @@ def cj_caza():
 def cj_veintiuno():
 
     return ''  
+
+# --------------------------- LORE ----------------------------
+
+def lore():
+
+    print('''
+
+        Esta historia se remonta a años antes de los eventos transcurridos en el juego ‘carrera al futuro’ 
+        y los eventos aquí descritos tienen lugar alrededor del año 202X.
+
+          ''')
+    
+    input("Presiona ↵")
+
+    print('''
+
+        En un lugar cerca de Washington DC, varias protestas surgen ante la candidatura de un cierto político infame que, 
+        tras años de gobernar los estados unidos y esparcir su desdén por la libertad colectiva y las minorías, 
+        decide poner en marcha nuevamente su plan. Varios concordaban ciegamente con sus ideologías, 
+        pero tras 4 años de gobierno, no cabía duda de sus verdaderas intenciones: hacerse con el dinero del pueblo 
+        e incentivar un sistema que perpetuara su estadía en el poder, pasando por alto (o condenando como ‘inconstitucional’) 
+        cualquier mecanismo estatal, activista, moción o demás, que le impidiera enraizar en lo profundo de la política estadounidense.
+
+          ''')
+
+    input("Presiona ↵")
+
+    print('''
+
+        En dicha protesta, un grupo de protestantes pacíficos de alianza Anarquista, liderados por 3 personas bajo los seudónimos de Max Striner, 
+        Lysander Spooner y Guillermo Godwin (en honor a las figuras históricas homónimas), notan que, mientras transitaban pacíficamente 
+        por la plaza donde se da la manifestación, un violento individuo comienza a atacar a los protestantes, gritando en defesa del infame político.
+
+          ''')
+    
+    input("Presiona ↵")
+
+    print('''
+
+        Ante tal conmoción, los 3 líderes se lanzan a la defensa de las masas y deciden acorralar al violento individuo e informar a las autoridades correspondientes.
+        [Acá se lleva a cabo el juego ‘Los Anarquistas y el Fascista’]
+
+          ''')
+    
+    input("Presiona ↵")
+
+    print('''
+
+          Habiendo acorralado al fascista y tras su arresto por parte de las autoridades, la manifestación puede seguir con normalidad. 
+          La manifestación es transmitida por todos los medios nacionales e incluso llega a ser noticia internacional y consiguen eliminar 
+          al infame político de la lista de candidatos, ganando las elecciones una aclamada dama que promueve la diversidad, la cultura 
+          y los derechos de todxs. Meses después, el día de la marcha es nombrado como el ‘Día de la resistencia’ por la ONU 
+          y se convierte en un día conmemorado internacionalmente como un día para luchar en contra de la opresión y en pro de la libertad 
+          y los derechos humanos universales.
+
+          ''')
+    
+    input("Presiona ↵")
+
+    print('''
+
+          Satisfechos con sus logros, deciden rentar un casino para jugar a las cartas con sus amigos, mas, un día, una misteriosa dama 
+          conocida bajo el seudónimo de ‘LA COM’ los reta a todos a un juego de blackjack, y promete hacer una generosa donación 
+          si consiguen derrotarla a ella en 4 juegos seguidos.
+          [Acá se lleva a cabo el juego ‘Lo que siguió’]
+
+          ''')
+    
+    input("Presiona ↵")
+
+    print('''
+
+          Tras varias victorias consecutivas, consiguen salir victoriosos y reciben la donación. 
+          Esa tarde, todos fueron a la nave.
+
+          ''')
+    
+    input("Presiona ↵")
+
+    print('El Fin', end='')
+    time.sleep(1)
+    print('.', end='')
+    time.sleep(1)
+    print('.', end='')
+    time.sleep(1)
+    print('.', end='')
+    time.sleep(1)
+    print('?')
+    time.sleep(1)
+
+    print('Volverás al Menú principal')
+    time.sleep(3)
+
+    return menu_principal()
 
 # ---------------------- LIEBRE Y PERROS ----------------------
 
