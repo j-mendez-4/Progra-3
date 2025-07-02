@@ -589,13 +589,13 @@ def determinar_ganador(cartas, modalidad):
     sumatoria[1] += suma_cartas(cartas[1], 'NO LA CASA')
 
     if sumatoria[0] > sumatoria[1]:
-        return fin_21(pierde='LA CASA', motivo=1)
+        return fin_21(pierde='LA CASA', motivo=1, cartas=cartas)
     else:
-        return fin_21(pierde=modalidad, motivo=1)
+        return fin_21(pierde=modalidad, motivo=1, cartas=cartas)
 
     
 
-def fin_21(pierde, motivo):
+def fin_21(pierde, motivo, cartas):
 
     if motivo == 0:
         motivo = "La suma de sus cartas excede 21"
@@ -605,6 +605,27 @@ def fin_21(pierde, motivo):
         motivo = "La primera carta de LA COM fué un 5 de rombos :P"
 
     print(f"\n¡Ha perdido {pierde}! {motivo}")
+
+    while True:
+
+        acción = input("\n¿Deseas Jugar otra vez? (s/n)")
+
+        if acción == 'S' or 's':
+
+            print("\n1. Un Jugador (V.S. COM.)")
+            time.sleep(1)
+            print("2. Dos Jugadores")
+            time.sleep(1)
+            acción = input("\nElige una Modalidad:")
+
+            if acción == '1':
+                return veintiuno_main(["LA COM", "LA CASA"])
+            
+        elif acción == 'N' or 'n':
+
+            print("\nVolverás al Menú Principal")
+            time.sleep(3)
+            return menu_principal
 
 
 
@@ -662,6 +683,5 @@ def suma_cartas(cartas, modalidad):
 # ---------------------- EXPERIMENTAL ----------------------
 
 
-res = menu_veintiuno()
-print(res)
+menu_principal
 
