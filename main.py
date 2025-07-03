@@ -109,7 +109,7 @@ def elegir_juego():
     print("\nElige uno de los juegos para comenzar la partida:\n")
     time.sleep(1)
     
-    print("1. La encuadrillada (Fox and Hounds)")
+    print("1. Fascista a la Fuga. (Fox and Hounds)")
     time.sleep(1)
 
     print("2. La Disputa (21)")
@@ -144,7 +144,7 @@ def cómo_jugar_main():
     print("\nElige uno de los juegos para saber cómo jugar:\n")
     time.sleep(1)
     
-    print("1. Anarquistas y El Fascista (Fox and Hounds)")
+    print("1. Fascista a la Fuga (Fox and Hounds)")
     time.sleep(1)
 
     print("2. Lo que siguió (21)")
@@ -247,7 +247,52 @@ def creditos():
 
 def cj_caza():
 
-    return ''
+    print(Fore.LIGHTRED_EX + "TEMATICA")
+    print(''''
+          En este juego de tablero estrategico, un fascista (la liebre) intenta escapar mientras anarquistas
+          (los perros) cooperan para impedir que logre huir. El jugador representa a el bando de los anarquistas,
+          mientras que la computadora toma el rol del fascista agresivo.
+          ''')
+    print("")
+    input("Presiones ↵ para continuar")
+
+    print(Fore.LIGHTMAGENTA_EX + "OBJETIVO")
+    print(''''
+          Fascista: Llegar al lado opuesto de donde inicia o evitar ser bloqueado durante todo el juego.
+          Anarquistas: Acorralar al fascista hasta que no pueda moverse hacia ninguna direccion.
+          ''')
+    print("")
+    input("Presiones ↵ para continuar")
+
+    print(Fore.RED + "TABLERO")
+    print(''''
+          Un tablero con forma de diamante en posicion horizontal, donde las casillas se intersecan con lineas verticales,
+          horizontales y diagonales.
+          Los anarquistan inician en la posicion mas a la izquierda de cada fila.
+          El fascista incia en la posicion mas a la derecha de la fila central.
+          ''')
+    print("")
+    input("Presiones ↵ para continuar")
+
+    print(Fore.BLUE + "TURNOS Y MOVIMIENTO")
+    print(''''
+          Se juega por turnos alternos: primero los anarquistas y luego el fascista, asi sucesivamente.
+          Fascista: Puede moverse hacia cualquier direccion dentro del tablero que este vacia.
+          Anarquistas: Se mueve solo un anarquista por turno y solo puede avanzar verticalmente, en diagonal y hacia adelante.
+          ''')
+    print("")
+    input("Presiones ↵ para continuar")
+
+    print(Fore.GREEN + "REGLAS ESPECIALES")
+    print(''''
+          - El fascista no puede saltar sobre anarquistas.
+          - Los anarquistas no pueden retroceder, por lo que deben acorralar estrategicamente.
+          - Si el fascista llega a la ultima columna del tablero, el fascista gana.
+          - Si queda totalmente rodeado y sin movimientos legales, pierden los autoritarismos, digo, pierde el fascista.
+          ''')
+    print("")
+    input("Presiones ↵ para regresar al menu principal")
+    return menu_principal()
 
 def cj_veintiuno():
 
@@ -353,9 +398,11 @@ def inicio_juego_caza():
     '''Funcion principal del juego'''
     print("")
     print("Bienvenido a la Liebre y los Perros de Caza.")
+    time.sleep(1)
+    print("En este juego tu objetivo es atrapar al fascista en fuga.")
     print("")
     time.sleep(1)
-    print("Te enfrentas a la computadora.")
+    print("Te enfrentas al fascista. (compuradora)")
     print("")
 
     tablero = crear_tablero_caza()
