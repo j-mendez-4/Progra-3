@@ -248,31 +248,31 @@ def creditos():
 def cj_caza():
 
     print(Fore.LIGHTRED_EX + "TEMATICA")
-    print(''''
+    print('''
           En este juego de tablero estrategico, un fascista (la liebre) intenta escapar mientras anarquistas
           (los perros) cooperan para impedir que logre huir. El jugador representa a el bando de los anarquistas,
           mientras que la computadora toma el rol del fascista agresivo.
           ''')
     print("")
-    input("Presiones ↵ para continuar")
+    input("Presiona ↵ para continuar")
 
     print(Fore.LIGHTMAGENTA_EX + "OBJETIVO")
-    print(''''
+    print('''
           Fascista: Llegar al lado opuesto de donde inicia o evitar ser bloqueado durante todo el juego.
           Anarquistas: Acorralar al fascista hasta que no pueda moverse hacia ninguna direccion.
           ''')
     print("")
-    input("Presiones ↵ para continuar")
+    input("Presiona ↵ para continuar")
 
     print(Fore.RED + "TABLERO")
-    print(''''
+    print('''
           Un tablero con forma de diamante en posicion horizontal, donde las casillas se intersecan con lineas verticales,
           horizontales y diagonales.
           Los anarquistan inician en la posicion mas a la izquierda de cada fila.
           El fascista incia en la posicion mas a la derecha de la fila central.
           ''')
     print("")
-    input("Presiones ↵ para continuar")
+    input("Presiona ↵ para continuar")
 
     print(Fore.BLUE + "TURNOS Y MOVIMIENTO")
     print(''''
@@ -281,22 +281,95 @@ def cj_caza():
           Anarquistas: Se mueve solo un anarquista por turno y solo puede avanzar verticalmente, en diagonal y hacia adelante.
           ''')
     print("")
-    input("Presiones ↵ para continuar")
+    input("Presiona ↵ para continuar")
 
     print(Fore.GREEN + "REGLAS ESPECIALES")
-    print(''''
+    print('''
           - El fascista no puede saltar sobre anarquistas.
           - Los anarquistas no pueden retroceder, por lo que deben acorralar estrategicamente.
           - Si el fascista llega a la ultima columna del tablero, el fascista gana.
           - Si queda totalmente rodeado y sin movimientos legales, pierden los autoritarismos, digo, pierde el fascista.
           ''')
     print("")
-    input("Presiones ↵ para regresar al menu principal")
+    input("Presiona ↵ para regresar al menu principal")
     return menu_principal()
 
 def cj_veintiuno():
 
-    return ''  
+    print(f"{Fore.YELLOW}LAS CARTAS\n")
+
+    print(f'''
+
+          En esta modalidad, El maso de cartas es {Fore.YELLOW}infinito{Fore.RESET}.
+          Esto significa todas las cartas son posibles cada que sloicitas tomar una nueva carta.
+          En este juego, los palos de las cartas no importan, salvo en un caso especial que se denotará más adelante.
+          Todas las cartas de valor tienen su mismo valor. Las cartas de figura tienen un valor de 10.
+          Si tienes un AS en tu mano, este puede tener un valor de 1 u 11, el cual puedes elegir al sumar tus cartas.
+
+          ''')
+    input("Presiona ↵ para continuar")
+
+    
+    print(f"{Fore.YELLOW}EL FLUJO DE JUEGO\n")
+
+
+    print(f'''
+
+          Al comenzar el juego (y tras elegir la modlidad), a cada jugador se le entregan 2 cartas aleatorias del maso.
+          Comienza juganto {Fore.LIGHTRED_EX}LA COM{Fore.RESET} o {Fore.GREEN}J1{Fore.RESET}, dependiendo de la modalidad.
+          Si juega {Fore.LIGHTRED_EX}LA COM{Fore.RESET}, esta jugará de manera automática obedeciendo a un dado perfil, asignado al comenzar la partida.
+          Si juega {Fore.GREEN}J1{Fore.RESET}, se sumarán sus cartas y se mostrará la suma en pantalla.
+          Mientras Juege {Fore.GREEN}J1{Fore.RESET}, la persona que juege como {Fore.MAGENTA}LA CASA{Fore.RESET} no debe mirar la sumatoria de las cartas de {Fore.GREEN}J1{Fore.RESET}.
+          Durante su turno, {Fore.GREEN}J1{Fore.RESET} podrá decidir si solicitar una carta o pasar su turno.
+          Luego de que {Fore.GREEN}J1{Fore.RESET} o {Fore.LIGHTRED_EX}LA COM{Fore.RESET} pase su turno, jugará {Fore.MAGENTA}LA CASA{Fore.RESET}.
+          Durante el turno de {Fore.MAGENTA}LA CASA{Fore.RESET}, se sumarán sus cartas y se mostrará el resultado en pantalla.
+          {Fore.MAGENTA}LA CASA{Fore.RESET} podrá decidir si tomar una carta o pasar su turno.
+          Una ves que {Fore.MAGENTA}LA CASA{Fore.RESET} pasa su turno, se determina el ganador.
+    
+          ''')
+    input("Presiona ↵ para continuar")
+
+    
+    print(f"{Fore.YELLOW}¿CÓMO GANAR?\n")
+
+    print(f'''
+
+          Para ganar, la suma de tus cartas deberá ser lo más cercano a 21 como sea posible, pero nunca debe exceder 21.
+          Salvo en casos especiales (que de detalla más adelante), el ganador se determina al finalizar el turno de {Fore.MAGENTA}LA CASA{Fore.RESET}.
+          Si antes del turno de {Fore.MAGENTA}LA CASA{Fore.RESET}, la suma de las cartas de {Fore.LIGHTRED_EX}LA COM{Fore.RESET} o de {Fore.GREEN}J1{Fore.RESET} excede 21, ganará {Fore.MAGENTA}LA CASA{Fore.RESET} automáticamente.
+          Si durante el turno de {Fore.MAGENTA}LA CASA{Fore.RESET}, la suma de sus cartas excede 21, ganará {Fore.LIGHTRED_EX}LA COM{Fore.RESET} o {Fore.GREEN}J1{Fore.RESET}, según la modalidad.
+          Si al finalizar el turno de {Fore.MAGENTA}LA CASA{Fore.RESET}, ambos Jugadores siguen en pie, ganará el bando con el puntaje mayor.
+
+          ''')
+    input("Presiona ↵ para continuar")
+
+    
+    print(f"{Fore.YELLOW}CASOS ESPECIALES\n")
+
+    print(f'''
+
+          Hay varias más maneras de ganar: los casos especiales.
+          Si alguno de los dos bandos tiene en total 5 cartas sin figuras y su sumatoria es menor o igual a 21, gana automáticamente.
+          Por otro lado, si la primera carta otorgada a un jugador es un 5 de rombos, gana automáticamente (reglas de {Fore.MAGENTA}LA CASA{Fore.RESET}, sorry not sorry).
+          Si un jugador obtiene dos ASes de cualquier palo, también ganará automáticamente.
+          Por último, si un jugador obtiene tres 7 en una sola mano, ganará automáticamente por sobre cualquier otro caso especial (Jackpot 🤑).
+
+          ''')
+    input("Presiona ↵ para continuar")
+
+    
+    print('''
+
+          Ya sabés Jugar 21! Andá jugá o leételo otra ves, mae.
+
+          ''')
+    
+    input("Presiona ↵ para regresar al menu principal")
+    return menu_principal()
+
+
+
+
 
 # --------------------------- LORE ----------------------------
 
@@ -359,7 +432,7 @@ def lore():
     print('''
 
           Satisfechos con sus logros, deciden rentar un casino para jugar a las cartas con sus amigos, mas, un día, una misteriosa dama 
-          conocida bajo el seudónimo de ‘LA COM’ los reta a todos a un juego de blackjack, y promete hacer una generosa donación 
+          conocida bajo el seudónimo de ‘{Fore.LIGHTRED_EX}LA COM{Fore.RESET}’ los reta a todos a un juego de blackjack, y promete hacer una generosa donación 
           si consiguen derrotarla a ella en 4 juegos seguidos.
           [Acá se lleva a cabo el juego ‘Lo que siguió’]
 
@@ -1262,6 +1335,7 @@ def modificar_tablero_fascista(fascista, posicion, tablero, camino):
 # ---------------------- VEINTIUNO ----------------------
 
 def repartir_cartas(num):
+    '''Reparte num cantidad de cartas (retorna un valor o AS)'''
 
     for i in range(num):
 
@@ -1304,6 +1378,7 @@ def repartir_cartas(num):
 
 
 def menu_veintiuno():
+    '''Menú principal del juego de 21'''
 
     print("\nBienvenidx al Juego de 21!\n")
     time.sleep(1)
@@ -1344,6 +1419,7 @@ def menu_veintiuno():
 
 
 def veintiuno_main(modalidad):
+    '''inicializa el juego de 21'''
 
     cartas = [[],[]]
 
@@ -1353,18 +1429,18 @@ def veintiuno_main(modalidad):
 
         while index < 2:
 
-            print(f"\n===== REPARTIENDO CARTAS A {modalidad[index]} =====\n")
+            print(f"\n===== {Fore.CYAN}REPARTIENDO CARTAS A {modalidad[index]} =====\n")
 
             cartas[index] += [repartir_cartas(2)]
             time.sleep(2)
             print('Done!')
             time.sleep(1)
 
-            if index == 1 and modalidad[index] == 'LA COM' or 'J1' and cartas[index][0] == 5:
+            if index == 1 and cartas[index][0] == 5:
 
                 coin = random.randint(0, 3)
                 if coin == 0:
-                    return fin_21(pierde='LA CASA', motivo=2)
+                    return fin_21(pierde=modalidad[index], motivo=2)
 
             index += 1
 
@@ -1374,22 +1450,25 @@ def veintiuno_main(modalidad):
             return veintiuno_vs(cartas)
 
 def veintiuno_com(cartas):
+    '''determina el ciclo de juego de LA COM'''
 
     sumatoria = [0, 0]
     perfil = random.randint(1, 4)
 
-    print(f"\n===== PERFIL DE LA COM: {perfil} =====\n")
+    print(f"\n===== PERFIL DE {Fore.LIGHTRED_EX}LA COM{Fore.RESET}: {perfil} =====\n")
 
     while True:
 
         if cartas[0][-1] == None:
             break
+        if len(cartas) >= 5:
+            return fin_21(pierde='LA CASA', motivo=3)
 
         sumatoria[0] = suma_cartas(cartas[0], 'LA COM')
 
         if sumatoria[0] > 21:
 
-            print(f"\n===== SUMATORIA DE LA COM =====")
+            print(f"\n===== SUMATORIA DE {Fore.LIGHTRED_EX}LA COM{Fore.RESET} =====")
             print(f"{Fore.YELLOW}-> {sumatoria[0]}{Fore.RESET}\n")
 
             return fin_21(pierde='LA COM', motivo=0)
@@ -1398,11 +1477,11 @@ def veintiuno_com(cartas):
 
         if cartas[0][-1] != None:
 
-            print(f"LA COM ha solicitado una carta\n")
+            print(f"{Fore.LIGHTRED_EX}LA COM{Fore.RESET} ha solicitado una carta\n")
             time.sleep(1)
             print("...\n")
             time.sleep(1)
-            print(f"LA COM ha obtenido una carta con un valor de {cartas[0][-1]}\n")
+            print(f"{Fore.LIGHTRED_EX}LA COM{Fore.RESET} ha obtenido una carta con un valor de {cartas[0][-1]}\n")
             time.sleep(3)
 
         else:
@@ -1413,6 +1492,7 @@ def veintiuno_com(cartas):
 
 
 def jugar_com(perfil, sumatoria):
+    '''Determina cómo juega LA COM segun su perfil'''
 
     if perfil == 1:
 
@@ -1454,8 +1534,9 @@ def jugar_com(perfil, sumatoria):
         return repartir_cartas(1)
     
 def veintiuno_vs(cartas):
+    '''Presenta el ciclo de juego al J1 y le deja tomar acciones'''
 
-    print(f"\n===== JUEGA J1 =====\n")
+    print(f"\n===== JUEGA {Fore.GREEN}J1{Fore.RESET} =====\n")
     time.sleep(3)
 
     while True:
@@ -1464,13 +1545,16 @@ def veintiuno_vs(cartas):
 
         if sumatoria > 21:
 
-            print(f"\n===== SUMATORIA DE J1 =====")
+            print(f"\n===== SUMATORIA DE {Fore.GREEN}J1{Fore.RESET} =====")
             print(f"{Fore.YELLOW}-> {sumatoria}{Fore.RESET}\n")
             time.sleep(1)
 
             return fin_21(pierde='J1', motivo=0)
+        
+        if len(cartas) >= 5:
+            return fin_21(pierde='LA CASA', motivo=3)
 
-        print(f"\n===== SUMATORIA DE J1 =====")
+        print(f"\n===== SUMATORIA DE {Fore.GREEN}J1{Fore.RESET} =====")
         print(f"{Fore.YELLOW}-> {sumatoria}{Fore.RESET}\n")
 
         print("Elige una acción:\n")
@@ -1484,11 +1568,11 @@ def veintiuno_vs(cartas):
         if acción == "1":
             cartas[0] += [repartir_cartas(1)]
 
-            print(f"J1 ha solicitado una carta\n")
+            print(f"{Fore.GREEN}J1{Fore.RESET} ha solicitado una carta\n")
             time.sleep(1)
             print("...\n")
             time.sleep(1)
-            print(f"J1 ha obtenido una carta con un valor de {cartas[0][-1]}\n")
+            print(f"{Fore.GREEN}J1{Fore.RESET} ha obtenido una carta con un valor de {cartas[0][-1]}\n")
             time.sleep(3)
 
 
@@ -1504,8 +1588,9 @@ def veintiuno_vs(cartas):
     
 
 def jugar_casa(cartas, modalidad):
+    '''Presenta el ciclo de juego a LA CASA y le deja tomar acciones'''
     
-    print(f"\n===== JUEGA LA CASA =====\n")
+    print(f"\n===== JUEGA {Fore.MAGENTA}LA CASA{Fore.RESET} =====\n")
     time.sleep(3)
 
     while True:
@@ -1514,13 +1599,18 @@ def jugar_casa(cartas, modalidad):
 
         if sumatoria > 21:
 
-            print(f"\n===== SUMATORIA DE LA CASA =====")
+            print(f"\n===== SUMATORIA DE {Fore.MAGENTA}LA CASA{Fore.RESET} =====")
             print(f"{Fore.YELLOW}-> {sumatoria}{Fore.RESET}\n")
             time.sleep(1)
 
             return fin_21(pierde='LA CASA', motivo=0)
+        
+        
+        if len(cartas) >= 5:
+            return fin_21(pierde='LA CASA', motivo=3)
 
-        print(f"\n===== SUMATORIA DE LA CASA =====")
+
+        print(f"\n===== SUMATORIA DE {Fore.MAGENTA}LA CASA{Fore.RESET} =====")
         print(f"{Fore.YELLOW}-> {sumatoria}{Fore.RESET}\n")
 
         print("Elige una acción:\n")
@@ -1534,11 +1624,11 @@ def jugar_casa(cartas, modalidad):
         if acción == "1":
             cartas[1] += [repartir_cartas(1)]
 
-            print(f"LA CASA ha tomado una carta\n")
+            print(f"{Fore.MAGENTA}LA CASA{Fore.RESET} ha tomado una carta\n")
             time.sleep(1)
             print("...\n")
             time.sleep(1)
-            print(f"LA CASA ha obtenido una carta con un valor de {cartas[1][-1]}\n")
+            print(f"{Fore.MAGENTA}LA CASA{Fore.RESET} ha obtenido una carta con un valor de {cartas[1][-1]}\n")
             time.sleep(3)
 
 
@@ -1553,6 +1643,7 @@ def jugar_casa(cartas, modalidad):
 
 
 def determinar_ganador(cartas, modalidad):
+    '''Determina un ganador tras finalizar el turno de La CASA'''
 
     sumatoria = [0 ,0]
     sumatoria[0] += suma_cartas(cartas[0], 'LA CASA')
@@ -1565,14 +1656,21 @@ def determinar_ganador(cartas, modalidad):
 
     
 
-def fin_21(pierde, motivo, cartas):
+def fin_21(pierde, motivo):
+    '''finaliza el juego de 21 imprimiendo el perdedor y su causa'''
 
     if motivo == 0:
         motivo = "La suma de sus cartas excede 21"
     elif motivo == 1:
-        motivo = "La suma de sus cartas es menor"
+        motivo = "La suma de sus cartas es menor que la de su oponente"
     elif motivo == 2:
-        motivo = "La primera carta de LA COM fué un 5 de rombos :P"
+        motivo = "La primera carta de su oponente fué un 5 de rombos :P"
+    elif motivo == 3:
+        motivo = "Su oponente obtuvo 5 cartas y su suma es 21 o menos :P"
+    elif motivo == 4:
+        motivo = "Su oponente obtuvo dos ASes"
+    elif motivo == 5:
+        motivo = "Su oponente obtuvo tres 7 🤑"
 
     print(f"\n¡Ha perdido {pierde}! {motivo}")
 
@@ -1590,6 +1688,8 @@ def fin_21(pierde, motivo, cartas):
 
             if acción == '1':
                 return veintiuno_main(["LA COM", "LA CASA"])
+            elif acción == '2':
+                return veintiuno_main(["J1", "LA CASA"])
             
         elif acción == 'N' or 'n':
 
@@ -1600,6 +1700,7 @@ def fin_21(pierde, motivo, cartas):
 
 
 def suma_cartas(cartas, modalidad):
+    '''suma las cartas en la mano del jugador'''
 
     sumatoria = [0, 0]
 
@@ -1650,7 +1751,7 @@ def suma_cartas(cartas, modalidad):
 
 
 
-# ---------------------- EXPERIMENTAL ----------------------
+# ---------------------- FUNCIONAL ----------------------
 
 
 menu_principal()
